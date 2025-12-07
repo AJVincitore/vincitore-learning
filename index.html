@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vincitore Learning</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 30px;
+            background: #fafafa;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #991b1b;
+            letter-spacing: -1px;
+        }
+        
+        .subtitle {
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 500;
+        }
+        
+        h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 40px 0 20px;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .goal {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+            border-left: 5px solid #991b1b;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        
+        .goal strong {
+            color: #991b1b;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .timer {
+            background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            margin: 30px 0;
+            box-shadow: 0 4px 20px rgba(153, 27, 27, 0.3);
+        }
+        
+        .timer-display {
+            font-size: 64px;
+            font-weight: 300;
+            margin: 20px 0;
+            letter-spacing: 3px;
+            font-variant-numeric: tabular-nums;
+        }
+        
+        button {
+            background: #991b1b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+        }
+        
+        button:hover {
+            background: #7f1d1d;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(153, 27, 27, 0.4);
+        }
+        
+        .timer button {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .timer button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 15px;
+            margin: 10px 0;
+            background: #ffffff;
+            transition: all 0.2s ease;
+            resize: vertical;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #991b1b;
+            box-shadow: 0 0 0 3px rgba(153, 27, 27, 0.1);
+        }
+        
+        .domains {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .domain {
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            background: #ffffff;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            font-size: 15px;
+        }
+        
+        .domain:hover {
+            border-color: #991b1b;
+            background: #fef2f2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(153, 27, 27, 0.15);
+        }
+        
+        .domain.active {
+            border-color: #991b1b;
+            background: #fef2f2;
+            box-shadow: 0 4px 12px rgba(153, 27, 27, 0.2);
+        }
+        
+        .entry {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #991b1b;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .entry strong {
+            color: #991b1b;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .entry-content {
+            margin-top: 10px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .void {
+            background: #1a1a1a;
+            color: white;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            margin: 40px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        
+        .void h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .void p {
+            color: #b0b0b0;
+            line-height: 1.8;
+            margin: 15px 0;
+        }
+        
+        .void button {
+            background: #991b1b;
+            margin-top: 20px;
+            padding: 15px 40px;
+            font-size: 15px;
+        }
+        
+        .void button:hover {
+            background: #7f1d1d;
+        }
+        
+        .save-btn {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        
+        #log:empty::before {
+            content: 'No entries yet. Start your journey.';
+            display: block;
+            text-align: center;
+            color: #999;
+            font-style: italic;
+            padding: 40px;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 36px;
+            }
+            
+            .timer-display {
+                font-size: 48px;
+            }
+            
+            .domains {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>VINCITORE</h1>
+        <div class="subtitle">Learning System</div>
+    </div>
+
+    <div class="goal">
+        <strong>Mission:</strong> Transform knowledge into success across Business, Boxing, Relationships, and Personal Power. Every insight becomes power.
+    </div>
+
+    <h2>Focus Timer</h2>
+    <div class="timer">
+        <div class="timer-display" id="timer">25:00</div>
+        <button onclick="start()">Start</button>
+        <button onclick="pause()">Pause</button>
+        <button onclick="reset()">Reset</button>
+    </div>
+
+    <h2>Capture Knowledge</h2>
+    <textarea id="knowledge" placeholder="What did you learn? What insight did you gain?" rows="4"></textarea>
+
+    <h2>Select Domain</h2>
+    <div class="domains">
+        <div class="domain" onclick="select(this, 'business')">Business</div>
+        <div class="domain" onclick="select(this, 'boxing')">Boxing</div>
+        <div class="domain" onclick="select(this, 'relationships')">Relationships</div>
+        <div class="domain" onclick="select(this, 'power')">Personal Power</div>
+    </div>
+
+    <h2>Define Action</h2>
+    <textarea id="action" placeholder="What specific action will you take to apply this knowledge?" rows="4"></textarea>
+    <button onclick="save()" class="save-btn">Commit to Action</button>
+
+    <div class="void">
+        <h3>⚫ Enter The Void</h3>
+        <p>Close your eyes. Release all thoughts. Feel your breath.</p>
+        <p>Visualize your ideal self moving through each domain with perfect control.</p>
+        <button onclick="void_practice()" id="voidBtn">Begin Void Practice</button>
+    </div>
+
+    <h2>Transmutation Log</h2>
+    <div id="log"></div>
+
+    <script>
+        let time = 1500;
+        let interval;
+        let domain = null;
+        let voidOn = false;
+
+        function start() {
+            interval = setInterval(() => {
+                if (time > 0) {
+                    time--;
+                    update();
+                } else {
+                    pause();
+                    alert('Done!');
+                }
+            }, 1000);
+        }
+
+        function pause() {
+            clearInterval(interval);
+        }
+
+        function reset() {
+            pause();
+            time = 1500;
+            update();
+        }
+
+        function update() {
+            let m = Math.floor(time / 60);
+            let s = time % 60;
+            document.getElementById('timer').textContent = 
+                (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+        }
+
+        function select(el, d) {
+            document.querySelectorAll('.domain').forEach(x => x.classList.remove('active'));
+            el.classList.add('active');
+            domain = d;
+        }
+
+        function save() {
+            let k = document.getElementById('knowledge').value;
+            let a = document.getElementById('action').value;
+            
+            if (!k || !a || !domain) {
+                alert('Please fill all fields and select a domain');
+                return;
+            }
+
+            let entry = document.createElement('div');
+            entry.className = 'entry';
+            entry.innerHTML = '<strong>' + domain.toUpperCase() + '</strong>' +
+                            '<div class="entry-content">Knowledge: ' + k + '</div>' +
+                            '<div class="entry-content">Action: ' + a + '</div>';
+            
+            document.getElementById('log').prepend(entry);
+            
+            document.getElementById('knowledge').value = '';
+            document.getElementById('action').value = '';
+            document.querySelectorAll('.domain').forEach(x => x.classList.remove('active'));
+            domain = null;
+        }
+
+        function void_practice() {
+            if (!voidOn) {
+                voidOn = true;
+                document.body.style.background = '#000';
+                document.body.style.opacity = '0.3';
+                document.getElementById('voidBtn').textContent = 'Exit Void Practice';
+            } else {
+                voidOn = false;
+                document.body.style.background = '#fafafa';
+                document.body.style.opacity = '1';
+                document.getElementById('voidBtn').textContent = 'Begin Void Practice';
+            }
+        }
+    </script>
+</body>
+</html>
